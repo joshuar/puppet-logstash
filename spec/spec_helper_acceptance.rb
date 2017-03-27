@@ -197,6 +197,12 @@ def puppet_enterprise?
   ENV['BEAKER_IS_PE'] == 'true' || ENV['IS_PE'] == 'true'
 end
 
+def use_strict_variables_command
+  # Shell commmand to enforce "strict variables".
+  # REF: https://docs.puppet.com/puppet/4.9/lang_variables.html#unassigned-variables-and-strict-mode
+  'echo "strict_variables = true" >> /etc/puppetlabs/puppet/puppet.conf'
+end
+
 hosts.each do |host|
   # Install Puppet
   if puppet_enterprise?
@@ -204,10 +210,12 @@ hosts.each do |host|
     `curl -s -o #{pe_download} #{pe_package_url}` unless File.exist?(pe_download)
     on host, "hostname #{host.name}"
     install_pe_on(host, pe_ver: PE_VERSION)
+    on host, use_strict_variables_command
   else
     if PUPPET_VERSION.start_with?('4.')
       agent_version = agent_version_for_puppet_version(PUPPET_VERSION)
       install_puppet_agent_on(host, puppet_agent_version: agent_version)
+      on host, use_strict_variables_command
     else
       begin
         install_puppet_on(host, version: PUPPET_VERSION)
