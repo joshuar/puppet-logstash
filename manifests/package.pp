@@ -75,8 +75,9 @@ class logstash::package(
       # Use the OS packaging system to locate the package.
       $package_local_file = undef
       $package_provider = undef
-      if $::osfamily == 'Debian' {
-        $package_require = Class['apt::update']
+      case $::osfamily {
+        'Debian': { $package_require = Class['apt::update'] }
+        default: { $package_require = undef }
       }
     }
   }
