@@ -1,7 +1,7 @@
 HOSTS:
   debian-8-x64:
     platform: debian-8-amd64
-    box: puppetlabs/debian-8.2-64-nocm
+    box: elastic/debian-8-x86_64
     hypervisor: vagrant
 CONFIG:
   type: foss

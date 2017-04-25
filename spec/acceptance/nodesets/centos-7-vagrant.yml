@@ -1,7 +1,7 @@
 HOSTS:
   centos-7-x64:
     platform: el-7-x86_64
-    box: puppetlabs/centos-7.2-64-nocm
+    box: elastic/centos-7-x86_64
     hypervisor: vagrant
 CONFIG:
   type: foss

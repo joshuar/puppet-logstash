@@ -1,7 +1,7 @@
 HOSTS:
   opensuse-13:
     platform: sles-13-x86_64 # Not really, but Beaker doesn't know about OpenSuSE!
-    image: library/opensuse:13.2
+    image: opensuse:13.2
     hypervisor: docker
     docker_cmd: '["/sbin/init"]'
     docker_image_commands:
